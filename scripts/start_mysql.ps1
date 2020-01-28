@@ -1,0 +1,1 @@
+docker run --name mysql-netcore -e MYSQL_ROOT_PASSWORD=password -d mysql:8.0.19

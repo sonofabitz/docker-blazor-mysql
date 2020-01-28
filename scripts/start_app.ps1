@@ -1,0 +1,1 @@
+docker run --rm --link mysql-netcore -p 5000:80 --name blazor blazor-docker

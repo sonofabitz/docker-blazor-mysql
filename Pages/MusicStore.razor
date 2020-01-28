@@ -1,0 +1,47 @@
+@page "/musicstore"
+
+@using MyBlazorServerTest.Models
+@using MyBlazorServerTest.Data
+@inject MusicStoreService MusicStoreService
+
+<h1>Music store</h1>
+
+<p>This component demonstrates fetching data from a mysql database.</p>
+
+@if (albums == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Artist Name</th>
+                <th>Price</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var album in albums)
+            {
+                <tr>
+                    <td>@album.Name</td>
+                    <td>@album.ArtistName</td>
+                    <td>@album.Price</td>
+                    <td>@album.Genre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Album[] albums;
+
+    protected override async Task OnInitializedAsync()
+    {
+        albums = await MusicStoreService.GetAlbumsAsync();
+    }
+}
