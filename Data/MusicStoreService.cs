@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,5 +19,13 @@ namespace MyBlazorServerTest.Data
                 }
             });
         }
+
+        // public IAsyncEnumerable<Album> GetAllAlbums()
+        // {
+        //     using (var context = new MusicStoreContext())
+        //     {
+        //         return context.Albums.ToAsyncEnumerable();
+        //     }
+        // }
     }
 }
