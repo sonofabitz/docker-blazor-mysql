@@ -4,9 +4,7 @@ namespace MyBlazorServerTest.Models
 {  
     [Table("album")]
     public class Album  
-    {  
-        private MusicStoreContext context;  
-  
+    {    
         public int Id { get; set; }  
   
         public string Name { get; set; }  

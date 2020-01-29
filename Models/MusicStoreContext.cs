@@ -2,18 +2,17 @@ using MySql.Data.MySqlClient;
 using System;    
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.DataAnnotations;
+using Microsoft.Extensions.Configuration;
     
 namespace MyBlazorServerTest.Models    
 {    
     public class MusicStoreContext : DbContext
     {
+        public MusicStoreContext(DbContextOptions<MusicStoreContext> options) : base(options) { }
+
         public DbSet<Album> Albums { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        optionsBuilder.UseMySQL("server=mysql-netcore;database=MusicStoreDB;user=root;password=password");
-        }
+		public IConfiguration Configuration { get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

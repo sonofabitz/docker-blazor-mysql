@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyBlazorServerTest.Models;
 using MyBlazorServerTest.Data;
+using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace MyBlazorServerTest
 {
@@ -31,7 +34,19 @@ namespace MyBlazorServerTest
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<MusicStoreService>();
-            //services.Add(new ServiceDescriptor(typeof(MusicStoreContext), new MusicStoreContext(Configuration.GetConnectionString("DefaultConnection"))));
+
+			var connectionString = new MySqlConnectionStringBuilder()
+			{
+				Password = Configuration["DBPassword"],
+				Server = Configuration["DBServer"],
+				Database = Configuration["DBDatabase"],
+				UserID = Configuration["DBUser"]
+			}.ConnectionString;
+
+            Console.Error.WriteLineAsync(connectionString);
+
+            services.AddDbContext<MusicStoreContext>(options =>
+                options.UseMySql(connectionString), ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
